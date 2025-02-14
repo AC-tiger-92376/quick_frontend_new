@@ -29,7 +29,7 @@ function Start() {
         return;
       }
       try {
-        const res = await axios.get("http://localhost:5000/api/auth/user", {
+        const res = await axios.get("https://quicktutor-backend.onrender.com/api/auth/user", {
           headers: { Authorization: `Bearer ${token}` }, 
         });
         //if (!res.ok) throw new Error("Unauthorized");
