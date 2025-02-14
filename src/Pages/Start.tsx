@@ -23,7 +23,7 @@ function Start() {
   useEffect(() => {
     const fetchUser = async () => {
       //const token = sessionStorage.getItem("token");
-      //console.log(token);
+      console.log(token);
       if (!token) {
         navigate("/");
         return;
