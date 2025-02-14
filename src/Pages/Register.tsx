@@ -12,6 +12,7 @@ interface FormData {
 const Register = () => {
   const [formData, setFormData] = useState<FormData>({ username: "", email: "", password: "" });
   const navigate = useNavigate();
+  const [statusMessage, setStatusMessage] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,11 +21,29 @@ const Register = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post("https://quicktutor-backend.onrender.com/api/auth/register", formData);
+      const response = await axios.post('https://quicktutor-backend.onrender.com/api/auth/send-email', {
+        to: "to",
+        subject: "subject",
+        text: "text",
+        html: "htmlContent",
+      });
+
+      if (response.status === 200) {
+        setStatusMessage('Email sent successfully!');
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setStatusMessage('Failed to send email');
+    }
+  
+/*
+    try {
+      await axios.post("https://quicktutor-backend.onrender.com/api/auth/send-email", formData);
       navigate("/login");
     } catch (error) {
       console.error(error);
     }
+    */
   };
 
   return (
@@ -37,6 +56,7 @@ const Register = () => {
           <TextField fullWidth label="Password" name="password" margin="normal" type="password" onChange={handleChange} required />
           <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>Register</Button>
         </form>
+        {statusMessage && <p>{statusMessage}</p>}
       </Box>
     </Container>
   );
