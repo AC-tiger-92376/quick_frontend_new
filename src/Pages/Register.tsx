@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Container, TextField, Button, Typography, Box } from "@mui/material";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 
 interface FormData {
   username: string;
@@ -11,7 +11,7 @@ interface FormData {
 
 const Register = () => {
   const [formData, setFormData] = useState<FormData>({ username: "", email: "", password: "" });
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const [statusMessage, setStatusMessage] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
