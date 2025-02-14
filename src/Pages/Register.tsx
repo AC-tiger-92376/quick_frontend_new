@@ -21,7 +21,7 @@ const Register = () => {
     e.preventDefault();
     try {
       await axios.post("https://quicktutor-backend.onrender.com/api/auth/register", formData);
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       console.error(error);
     }

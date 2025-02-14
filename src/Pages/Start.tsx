@@ -25,7 +25,7 @@ function Start() {
       //const token = sessionStorage.getItem("token");
       console.log(token);
       if (!token) {
-        navigate("/");
+        navigate("/login");
         return;
       }
       try {
@@ -36,7 +36,7 @@ function Start() {
         setUser(res.data);
       } catch (error) {
         localStorage.removeItem("token");
-        navigate("/");
+        navigate("/login");
       }
     };
    
@@ -53,7 +53,7 @@ function Start() {
   {
     if(value) localStorage.removeItem("token");
     
-    navigate('/');
+    navigate('/login');
   }
   return (
     <ThemeProvider theme={MainTheme}>
