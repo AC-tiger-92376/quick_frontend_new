@@ -18,19 +18,28 @@ function Start() {
   const navigate = useNavigate();
   const token = localStorage.getItem('token'); 
   const [isShowSideMenu, SetisShowSideMenu] = useState<boolean>(false);
-
+  
 
   useEffect(() => {
     const fetchUser = async () => {
       //const token = sessionStorage.getItem("token");
-      console.log(token);
+      //console.log(token);
       if (!token) {
         navigate("/login");
         return;
       }
       try {
-        const res = await axios.get("https://quicktutor-backend.onrender.com/api/auth/user", {
-          headers: { Authorization: `Bearer ${token}` }, 
+        /*
+        const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user`, {
+          'Authorization': `Bearer ${token}`
+        });
+        */
+        const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user`,{}, // Empty body if not needed
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Ensure "Bearer " prefix is included
+            'Content-Type': 'application/json'
+          }
         });
         //if (!res.ok) throw new Error("Unauthorized");
         setUser(res.data);

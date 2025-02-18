@@ -19,8 +19,8 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://quicktutor-backend.onrender.com/api/auth/login", formData);
-      localStorage.setItem("token", res.data.token);
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/login`, formData);
+      localStorage.setItem("token", res.data.access_token);
       navigate("/");
     } catch (error) {
       console.error(error);

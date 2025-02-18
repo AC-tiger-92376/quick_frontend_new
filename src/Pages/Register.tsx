@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Container, TextField, Button, Typography, Box } from "@mui/material";
 import axios from "axios";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface FormData {
   username: string;
@@ -11,7 +11,8 @@ interface FormData {
 
 const Register = () => {
   const [formData, setFormData] = useState<FormData>({ username: "", email: "", password: "" });
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
+  
   const [statusMessage, setStatusMessage] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,8 +21,9 @@ const Register = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    /*
     try {
-      const response = await axios.post('https://quicktutor-backend.onrender.com/api/auth/send-email', {
+      const response = await axios.post('https://127.0.0.1:8000/register', {
         to: "to",
         subject: "subject",
         text: "text",
@@ -35,15 +37,18 @@ const Register = () => {
       console.error('Error sending email:', error);
       setStatusMessage('Failed to send email');
     }
-  
-/*
+  */
+
     try {
-      await axios.post("https://quicktutor-backend.onrender.com/api/auth/send-email", formData);
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/register`, formData);
+      
+        setStatusMessage(response.data);
+    
       navigate("/login");
     } catch (error) {
       console.error(error);
     }
-    */
+    
   };
 
   return (
@@ -56,7 +61,7 @@ const Register = () => {
           <TextField fullWidth label="Password" name="password" margin="normal" type="password" onChange={handleChange} required />
           <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>Register</Button>
         </form>
-        {statusMessage && <p>{statusMessage}</p>}
+        <p>{statusMessage}</p>
       </Box>
     </Container>
   );
